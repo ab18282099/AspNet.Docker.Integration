@@ -1,4 +1,5 @@
-﻿using AspNet.Docker.Integration.Repository;
+﻿using AspNet.Docker.Integration.Helper;
+using AspNet.Docker.Integration.Repository;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace AspNet.Docker.Integration
 {
@@ -59,6 +62,26 @@ namespace AspNet.Docker.Integration
 
             // 將 services 容器內已有的類型註冊資訊倒入 autofac 容器
             builder.Populate(services);
+
+            // 取得排序後的 ITypeRegistrar
+            IOrderedEnumerable<ITypeRegistrar> registrars
+                = Assembly.GetExecutingAssembly()
+                          .GetReferencedAssemblies()
+                          .Select(Assembly.Load)
+                          .Concat(new Assembly[]
+                           {
+                               // Assembly.Load("AspNet.Docker.Integration.Repository"),
+                           })
+                          .SelectMany(p => p.ExportedTypes.Where(s => s.IsAssignableTo<ITypeRegistrar>() && !s.IsInterface))
+                          .Select(p => (ITypeRegistrar)Activator.CreateInstance(p))
+                          .Distinct()
+                          .OrderBy(p => p.Order);
+
+            // 個別進行註冊
+            foreach (ITypeRegistrar registrar in registrars)
+            {
+                registrar.Register(builder);
+            }
 
             IContainer container = builder.Build();
             this.ApplicationContainer = container;

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspNet.Docker.Integration.Helper\AspNet.Docker.Integration.Helper.csproj" />
     <ProjectReference Include="..\AspNet.Docker.Integration.Repository\AspNet.Docker.Integration.Repository.csproj" />
   </ItemGroup>
 

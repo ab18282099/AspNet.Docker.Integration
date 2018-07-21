@@ -1,6 +1,5 @@
 ﻿using AspNet.Docker.Integration.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace AspNet.Docker.Integration.Controllers
 {
@@ -10,17 +9,17 @@ namespace AspNet.Docker.Integration.Controllers
     public class TestController : Controller
     {
         /// <summary>
-        /// DockPostgresDbContext
+        /// 使用者資料儲存庫
         /// </summary>
-        private readonly DockPostgresDbContext DbContext;
+        private readonly IUserRepositoy UserRepositoy;
 
         /// <summary>
         /// 建構子
         /// </summary>
-        /// <param name="dockPostgresDbContext">DockPostgresDbContext</param>
-        public TestController(DockPostgresDbContext dockPostgresDbContext)
+        /// <param name="userRepositoy">使用者資料儲存庫</param>
+        public TestController(IUserRepositoy userRepositoy)
         {
-            this.DbContext = dockPostgresDbContext;
+            this.UserRepositoy = userRepositoy;
         }
 
         /// <summary>
@@ -29,7 +28,7 @@ namespace AspNet.Docker.Integration.Controllers
         /// <returns> json response </returns>
         public IActionResult GetUsers()
         {
-            return this.Json(this.DbContext.Users.ToList());
+            return this.Json(this.UserRepositoy.GetAll());
         }
     }
 }
