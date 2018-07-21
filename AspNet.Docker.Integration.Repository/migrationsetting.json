@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "DockerPostgres": "Server=postgres-docker;Port=5432;Database=develop;User Id=dockeradmin;Password=dockeradmin;Search Path=kingoflock;"
+  }
+}

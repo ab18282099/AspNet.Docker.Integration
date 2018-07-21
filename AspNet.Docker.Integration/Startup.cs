@@ -1,0 +1,103 @@
+﻿using AspNet.Docker.Integration.Repository;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
+namespace AspNet.Docker.Integration
+{
+    /// <summary>
+    /// 啟動類別
+    /// </summary>
+    public class Startup
+    {
+        /// <summary>
+        /// 建構子
+        /// </summary>
+        /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
+        public Startup(IConfiguration configuration)
+        {
+            this.Configuration = configuration;
+        }
+
+        /// <summary>
+        /// Represents a set of key/value application configuration properties.
+        /// </summary>
+        public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Autofac DI 容器
+        /// </summary>
+        public IContainer ApplicationContainer { get; private set; }
+
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
+        /// <returns><see cref="IServiceProvider"/>Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.</returns>
+        public IServiceProvider ConfigureServices(IServiceCollection services)
+        {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // DbContext in application scope
+            services.AddDbContext<DockPostgresDbContext>(options => options.UseNpgsql(this.Configuration.GetConnectionString("DockerPostgres")));
+
+            ContainerBuilder builder = new ContainerBuilder();
+
+            // 將 services 容器內已有的類型註冊資訊倒入 autofac 容器
+            builder.Populate(services);
+
+            IContainer container = builder.Build();
+            this.ApplicationContainer = container;
+
+            return new AutofacServiceProvider(this.ApplicationContainer);
+        }
+
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">Defines a class that provides the mechanisms to configure an application's request pipeline.</param>
+        /// <param name="env">Provides information about the web hosting environment an application is running in.</param>
+        /// <param name="appLifetime">Allows consumers to perform cleanup during a graceful shutdown.</param>
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            // If you want to dispose of resources that have been resolved in the
+            // application container, register for the "ApplicationStopped" event.
+            // You can only do this if you have a direct reference to the container,
+            // so it won't work with the above ConfigureContainer mechanism.
+            appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
+        }
+    }
+}

@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  netcore:
+    image: microsoft/dotnet
+    container_name: AspNetCoreDocker
+    volumes:
+      - ${NETCORE_HOST_DIR}:/app/
+    ports:
+      - "8001:80"
+    tty: true
+    networks: 
+      - netcore-dev
+    depends_on:
+      - postgres-docker
+
+  postgres-docker:
+    image: postgres
+    container_name: DockerPostgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
+    expose:
+      - "5432"
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - netcore-dev
+
+networks:
+  netcore-dev:
+    driver: bridge
