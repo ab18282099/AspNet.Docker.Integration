@@ -19,8 +19,6 @@ services:
     container_name: DockerPostgres
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
-    expose:
-      - "5432"
     ports:
       - "${POSTGRES_PORT}:5432"
     environment:
