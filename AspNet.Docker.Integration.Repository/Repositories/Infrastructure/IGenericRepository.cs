@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using AspNet.Docker.Integration.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNet.Docker.Integration.Repository
@@ -61,6 +62,7 @@ namespace AspNet.Docker.Integration.Repository
         /// 取得整個資料集合
         /// </summary>
         /// <returns>完整資料集</returns>
+        [MethodInterceptor]
         List<TEntity> GetAll();
     }
 }

@@ -1,4 +1,6 @@
-﻿using AspNet.Docker.Integration.Helper;
+﻿using AspectCore.Configuration;
+using AspectCore.Extensions.Autofac;
+using AspNet.Docker.Integration.Helper;
 using AspNet.Docker.Integration.Repository;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -83,8 +85,16 @@ namespace AspNet.Docker.Integration
                 registrar.Register(builder);
             }
 
+            builder.RegisterDynamicProxy(configure =>
+            {
+                configure.Interceptors.AddTyped<MethodInterceptorAttribute>();
+            });
+
             IContainer container = builder.Build();
             this.ApplicationContainer = container;
+
+            // 設定相依性解析器
+            DependencyResolver.Current.SetContainer(container);
 
             return new AutofacServiceProvider(this.ApplicationContainer);
         }
