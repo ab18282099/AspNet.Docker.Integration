@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace AspNet.Docker.Integration.Repository.Migrations
+namespace AspNet.Docker.Integration.Repository.Migrations.DockPostgresDb
 {
     [DbContext(typeof(DockPostgresDbContext))]
     partial class DockPostgresDbContextModelSnapshot : ModelSnapshot

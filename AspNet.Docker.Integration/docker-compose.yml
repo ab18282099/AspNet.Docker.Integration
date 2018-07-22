@@ -27,6 +27,18 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
       - netcore-dev
+      
+  sqlserver-docker:
+    image: microsoft/mssql-server-linux
+    container_name: DockerSqlServer
+    ports:
+      - "${SQLSERVER_PORT}:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+      - MSSQL_SA_PASSWORD=${SQLSERVER_PASSWORD}
+    networks:
+          - netcore-dev
 
 networks:
   netcore-dev:

@@ -59,6 +59,8 @@ namespace AspNet.Docker.Integration
 
             // DbContext in application scope
             services.AddDbContext<DockPostgresDbContext>(options => options.UseNpgsql(this.Configuration.GetConnectionString("DockerPostgres")));
+            services.AddDbContext<DockSqlServerDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DockerSqlServer")));
+            
 
             ContainerBuilder builder = new ContainerBuilder();
 
