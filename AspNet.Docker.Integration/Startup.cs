@@ -2,8 +2,8 @@
 using AspectCore.Extensions.Autofac;
 using AspNet.Docker.Integration.Helper;
 using AspNet.Docker.Integration.Repository;
-using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Linq;
 using System.Reflection;
+using System;
 
 namespace AspNet.Docker.Integration
 {
@@ -34,12 +34,12 @@ namespace AspNet.Docker.Integration
         /// <summary>
         /// Represents a set of key/value application configuration properties.
         /// </summary>
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         /// <summary>
         /// Autofac DI 容器
         /// </summary>
-        public IContainer ApplicationContainer { get; private set; }
+        private IContainer ApplicationContainer { get; set; }
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.
