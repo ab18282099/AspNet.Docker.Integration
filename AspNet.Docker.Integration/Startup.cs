@@ -87,6 +87,7 @@ namespace AspNet.Docker.Integration
                 registrar.Register(builder);
             }
 
+            // 註冊 Proxy，用於 interceptor 的綁定(AOP)
             builder.RegisterDynamicProxy(configure =>
             {
                 configure.Interceptors.AddTyped<MethodInterceptorAttribute>();

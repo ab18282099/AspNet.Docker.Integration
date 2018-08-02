@@ -62,7 +62,6 @@ namespace AspNet.Docker.Integration.Repository
         /// 取得整個資料集合
         /// </summary>
         /// <returns>完整資料集</returns>
-        [MethodInterceptor]
         List<TEntity> GetAll();
     }
 }
