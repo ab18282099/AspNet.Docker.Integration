@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace AspNet.Docker.Integration.Repository.Migrations.DockPostgresDb
+namespace AspNet.Docker.Integration.Repository.Migrations
 {
     [DbContext(typeof(DockPostgresDbContext))]
     partial class DockPostgresDbContextModelSnapshot : ModelSnapshot
@@ -14,7 +14,7 @@ namespace AspNet.Docker.Integration.Repository.Migrations.DockPostgresDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("kingoflock")
+                .HasDefaultSchema("dockerdemo")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);

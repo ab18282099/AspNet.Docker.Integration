@@ -1,1 +1,1 @@
-﻿CREATE SCHEMA kingoflock;
+﻿CREATE SCHEMA IF NOT EXISTS dockerdemo;

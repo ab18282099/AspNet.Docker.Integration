@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AspNet.Docker.Integration.Repository.Migrations
+namespace AspNet.Docker.Integration.Repository.Migrations.DockSqlServerDb
 {
-    public partial class inital : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "kingoflock");
+                name: "dockerdemo");
 
             migrationBuilder.CreateTable(
                 name: "ORDER",
-                schema: "kingoflock",
+                schema: "dockerdemo",
                 columns: table => new
                 {
                     ORDER_ID = table.Column<int>(nullable: false)
@@ -29,7 +29,7 @@ namespace AspNet.Docker.Integration.Repository.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ORDER",
-                schema: "kingoflock");
+                schema: "dockerdemo");
         }
     }
 }

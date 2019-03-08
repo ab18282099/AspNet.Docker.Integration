@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace AspNet.Docker.Integration.Repository.Migrations.DockPostgresDb
+namespace AspNet.Docker.Integration.Repository.Migrations
 {
-    public partial class inital : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "kingoflock");
+                name: "dockerdemo");
 
             migrationBuilder.CreateTable(
                 name: "user",
-                schema: "kingoflock",
+                schema: "dockerdemo",
                 columns: table => new
                 {
                     user_id = table.Column<int>(nullable: false)
@@ -29,7 +29,7 @@ namespace AspNet.Docker.Integration.Repository.Migrations.DockPostgresDb
         {
             migrationBuilder.DropTable(
                 name: "user",
-                schema: "kingoflock");
+                schema: "dockerdemo");
         }
     }
 }

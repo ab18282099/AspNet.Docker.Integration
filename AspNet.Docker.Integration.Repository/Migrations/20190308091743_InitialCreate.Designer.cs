@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace AspNet.Docker.Integration.Repository.Migrations.DockPostgresDb
+namespace AspNet.Docker.Integration.Repository.Migrations
 {
     [DbContext(typeof(DockPostgresDbContext))]
-    [Migration("20180722113947_inital")]
-    partial class inital
+    [Migration("20190308091743_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("kingoflock")
+                .HasDefaultSchema("dockerdemo")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);

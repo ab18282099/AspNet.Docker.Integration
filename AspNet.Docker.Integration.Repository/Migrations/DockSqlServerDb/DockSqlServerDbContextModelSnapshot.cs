@@ -3,20 +3,18 @@ using AspNet.Docker.Integration.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AspNet.Docker.Integration.Repository.Migrations
+namespace AspNet.Docker.Integration.Repository.Migrations.DockSqlServerDb
 {
     [DbContext(typeof(DockSqlServerDbContext))]
-    [Migration("20180722113847_inital")]
-    partial class inital
+    partial class DockSqlServerDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("kingoflock")
+                .HasDefaultSchema("dockerdemo")
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

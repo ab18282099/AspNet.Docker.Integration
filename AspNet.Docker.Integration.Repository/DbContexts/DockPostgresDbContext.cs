@@ -27,7 +27,7 @@ namespace AspNet.Docker.Integration.Repository
         /// <param name="modelBuilder"><see cref="ModelBuilder"/></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("kingoflock");
+            modelBuilder.HasDefaultSchema("dockerdemo");
 
             base.OnModelCreating(modelBuilder);
         }
