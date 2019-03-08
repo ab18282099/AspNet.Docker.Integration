@@ -14,12 +14,21 @@ namespace AspNet.Docker.Integration.Controllers
         private readonly IUserRepositoy UserRepository;
 
         /// <summary>
+        /// 訂單資料儲存庫
+        /// </summary>
+        private readonly IOrderRepository OrderRepository;
+
+        /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="userRepository">使用者資料儲存庫</param>
-        public TestController(IUserRepositoy userRepository)
+        /// <param name="orderRepository">訂單資料儲存庫</param>
+        public TestController(
+            IUserRepositoy userRepository,
+            IOrderRepository orderRepository)
         {
             this.UserRepository = userRepository;
+            this.OrderRepository = orderRepository;
         }
 
         /// <summary>
@@ -29,6 +38,15 @@ namespace AspNet.Docker.Integration.Controllers
         public IActionResult GetUsers()
         {
             return this.Json(this.UserRepository.GetAll());
+        }
+
+        /// <summary>
+        /// 取得所有訂單資料
+        /// </summary>
+        /// <returns> json response </returns>
+        public IActionResult GetOrders()
+        {
+            return this.Json(this.OrderRepository.GetAll());
         }
     }
 }
