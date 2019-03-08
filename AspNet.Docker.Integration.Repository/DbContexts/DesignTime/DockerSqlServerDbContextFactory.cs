@@ -5,7 +5,7 @@ namespace AspNet.Docker.Integration.Repository
     /// <summary>
     /// 本站台使用之 Docker SqlServer <see cref="DbContext"/> 的設計階段 <see cref="DbContext"/> 工廠
     /// </summary>
-    public class DockerSqlServerDbContextFactory : DesignTimeDbContextFactoryBase<DockSqlServerDbContext>
+    public class DockerSqlServerDbContextFactory : DesignTimeDbContextFactoryBase<DockerSqlServerDbContext>
     {
         /// <summary>
         /// 連線字串鍵值
@@ -18,12 +18,12 @@ namespace AspNet.Docker.Integration.Repository
         /// <param name="optionsBuilder"><see cref="DbContextOptionsBuilder{TContext}"/></param>
         /// <param name="connectionString">連線字串</param>
         /// <returns><see cref="DbContext"/>實際型別</returns>
-        protected override DockSqlServerDbContext CreateNewInstance(DbContextOptionsBuilder<DockSqlServerDbContext> optionsBuilder, string connectionString)
+        protected override DockerSqlServerDbContext CreateNewInstance(DbContextOptionsBuilder<DockerSqlServerDbContext> optionsBuilder, string connectionString)
         {
             // 設定使用 SqlServer 為 DbProvider
             optionsBuilder.UseSqlServer(connectionString);
 
-            return new DockSqlServerDbContext(optionsBuilder.Options);
+            return new DockerSqlServerDbContext(optionsBuilder.Options);
         }
     }
 }

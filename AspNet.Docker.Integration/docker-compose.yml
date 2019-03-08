@@ -1,23 +1,11 @@
 version: "3"
 
 services:
-  netcore:
-    image: microsoft/dotnet
-    container_name: AspNetCoreDocker
-    volumes:
-      - ${NETCORE_HOST_DIR}:/app/
-    ports:
-      - "8001:80"
-    tty: true
-    networks: 
-      - netcore-dev
-    depends_on:
-      - postgres-docker
-
   postgres-docker:
     image: postgres
     container_name: DockerPostgres
     volumes:
+      - ${POSTGRES_HOST_DIR}:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
     ports:
       - "${POSTGRES_PORT}:5432"
@@ -27,18 +15,36 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
       - netcore-dev
-      
+
   sqlserver-docker:
     image: microsoft/mssql-server-linux
     container_name: DockerSqlServer
     ports:
       - "${SQLSERVER_PORT}:1433"
+    volumes:
+      - ${SQLSERVER_HOST_DIR}:/var/opt/mssql
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Developer
       - MSSQL_SA_PASSWORD=${SQLSERVER_PASSWORD}
     networks:
-          - netcore-dev
+      - netcore-dev
+  
+  netcore:
+    image: aspnetdocker:dev
+    container_name: AspNetCoreDocker
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    command: ["/bin/bash", "/app/AspNet.Docker.Integration/init.sh"]
+    ports:
+      - "${APP_HOST_PORT}:80"
+    tty: true
+    networks: 
+      - netcore-dev
+    depends_on:
+      - postgres-docker
+      - sqlserver-docker
 
 networks:
   netcore-dev:

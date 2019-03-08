@@ -58,8 +58,8 @@ namespace AspNet.Docker.Integration
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // DbContext in application scope
-            services.AddDbContext<DockPostgresDbContext>(options => options.UseNpgsql(this.Configuration.GetConnectionString("DockerPostgres")));
-            services.AddDbContext<DockSqlServerDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DockerSqlServer")));
+            services.AddDbContext<DockerPostgresDbContext>(options => options.UseNpgsql(this.Configuration.GetConnectionString("DockerPostgres")));
+            services.AddDbContext<DockerSqlServerDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DockerSqlServer")));
             
 
             ContainerBuilder builder = new ContainerBuilder();
@@ -110,6 +110,16 @@ namespace AspNet.Docker.Integration
         /// <param name="appLifetime">Allows consumers to perform cleanup during a graceful shutdown.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
+            using (ILifetimeScope scope = this.ApplicationContainer.BeginLifetimeScope())
+            {
+                // 若 database 未建立，則根據dbContext 建立 db
+                DockerPostgresDbContext postgresDbContext = scope.Resolve<DockerPostgresDbContext>();
+                postgresDbContext.Database.EnsureCreated();
+
+                DockerSqlServerDbContext sqlServerDbContext = scope.Resolve<DockerSqlServerDbContext>();
+                sqlServerDbContext.Database.EnsureCreated();
+            }
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

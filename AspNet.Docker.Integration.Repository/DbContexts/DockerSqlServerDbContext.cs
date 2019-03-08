@@ -6,13 +6,13 @@ namespace AspNet.Docker.Integration.Repository
     /// <summary>
     /// 本站台使用之 Docker SqlServer <see cref="DbContext"/>
     /// </summary>
-    public class DockSqlServerDbContext : DbContext
+    public class DockerSqlServerDbContext : DbContext
     {
         /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="options"><see cref="DbContextOptions{TContext}"/></param>
-        public DockSqlServerDbContext(DbContextOptions<DockSqlServerDbContext> options) : base(options)
+        public DockerSqlServerDbContext(DbContextOptions<DockerSqlServerDbContext> options) : base(options)
         {
         }
 

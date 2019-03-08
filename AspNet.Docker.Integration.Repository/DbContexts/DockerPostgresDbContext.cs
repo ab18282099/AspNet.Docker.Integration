@@ -6,13 +6,13 @@ namespace AspNet.Docker.Integration.Repository
     /// <summary>
     /// 本站台使用之 Docker PostgreSql <see cref="DbContext"/>
     /// </summary>
-    public class DockPostgresDbContext : DbContext
+    public class DockerPostgresDbContext : DbContext
     {
         /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="options"><see cref="DbContextOptions{TContext}"/></param>
-        public DockPostgresDbContext(DbContextOptions<DockPostgresDbContext> options) : base(options)
+        public DockerPostgresDbContext(DbContextOptions<DockerPostgresDbContext> options) : base(options)
         {
         }
 
