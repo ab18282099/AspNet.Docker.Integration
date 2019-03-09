@@ -1,17 +1,17 @@
 namespace AspNet.Docker.Integration.Models
 {
     /// <summary>
-    /// 錯誤資訊模型
+    /// Error data model
     /// </summary>
     public class ErrorViewModel
     {
         /// <summary>
-        /// HTTP Request 編號
+        /// HTTP Request id
         /// </summary>
         public string RequestId { get; set; }
 
         /// <summary>
-        /// 是否顯示 Request 編號
+        /// Show request id if not null or empty
         /// </summary>
         public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
     }

@@ -5,17 +5,17 @@ using System.Reflection;
 namespace AspNet.Docker.Integration.Repository
 {
     /// <summary>
-    /// 物件註冊
+    /// Autofac Type register
     /// </summary>
     public class AutofacTypeRegistrar : ITypeRegistrar
     {
         /// <summary>
-        /// 註冊排序
+        /// register order
         /// </summary>
         public int Order => 3;
 
         /// <summary>
-        /// 註冊物件
+        /// Register type
         /// </summary>
         /// <param name="builder">Used to build an <see cref="T:Autofac.IContainer" /> from component registrations.</param>
         public void Register(ContainerBuilder builder)

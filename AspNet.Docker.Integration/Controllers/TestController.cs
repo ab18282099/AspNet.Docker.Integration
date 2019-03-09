@@ -4,25 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 namespace AspNet.Docker.Integration.Controllers
 {
     /// <summary>
-    /// api 測試控制器
+    /// Api test controller
     /// </summary>
     public class TestController : Controller
     {
         /// <summary>
-        /// 使用者資料儲存庫
+        /// User Repo
         /// </summary>
         private readonly IUserRepositoy UserRepository;
 
         /// <summary>
-        /// 訂單資料儲存庫
+        /// Order Repo
         /// </summary>
         private readonly IOrderRepository OrderRepository;
 
         /// <summary>
-        /// 建構子
+        /// constructor
         /// </summary>
-        /// <param name="userRepository">使用者資料儲存庫</param>
-        /// <param name="orderRepository">訂單資料儲存庫</param>
+        /// <param name="userRepository">User repo</param>
+        /// <param name="orderRepository">Order repo</param>
         public TestController(
             IUserRepositoy userRepository,
             IOrderRepository orderRepository)
@@ -32,7 +32,7 @@ namespace AspNet.Docker.Integration.Controllers
         }
 
         /// <summary>
-        /// 取得所有使用者資料
+        /// Get all user data by GET /Test/GetUsers
         /// </summary>
         /// <returns> json response </returns>
         public IActionResult GetUsers()
@@ -41,7 +41,7 @@ namespace AspNet.Docker.Integration.Controllers
         }
 
         /// <summary>
-        /// 取得所有訂單資料
+        /// Get all order data by GET /Test/GetOrders
         /// </summary>
         /// <returns> json response </returns>
         public IActionResult GetOrders()

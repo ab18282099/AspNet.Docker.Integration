@@ -18,12 +18,12 @@ using System;
 namespace AspNet.Docker.Integration
 {
     /// <summary>
-    /// 啟動類別
+    /// Startup class
     /// </summary>
     public class Startup
     {
         /// <summary>
-        /// 建構子
+        /// constructor
         /// </summary>
         /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
         public Startup(IConfiguration configuration)
@@ -37,7 +37,7 @@ namespace AspNet.Docker.Integration
         private IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Autofac DI 容器
+        /// Autofac DI container
         /// </summary>
         private IContainer ApplicationContainer { get; set; }
 
@@ -63,11 +63,9 @@ namespace AspNet.Docker.Integration
             
 
             ContainerBuilder builder = new ContainerBuilder();
-
-            // 將 services 容器內已有的類型註冊資訊倒入 autofac 容器
             builder.Populate(services);
 
-            // 取得排序後的 ITypeRegistrar
+            // Get ordered TypeRegistrar
             IOrderedEnumerable<ITypeRegistrar> registrars
                 = Assembly.GetExecutingAssembly()
                           .GetReferencedAssemblies()
@@ -81,13 +79,12 @@ namespace AspNet.Docker.Integration
                           .Distinct()
                           .OrderBy(p => p.Order);
 
-            // 個別進行註冊
             foreach (ITypeRegistrar registrar in registrars)
             {
                 registrar.Register(builder);
             }
 
-            // 註冊 Proxy，用於 interceptor 的綁定(AOP)
+            // register Proxy for Interceptors(AOP)
             builder.RegisterDynamicProxy(configure =>
             {
                 configure.Interceptors.AddTyped<MethodInterceptorAttribute>();
@@ -96,7 +93,7 @@ namespace AspNet.Docker.Integration
             IContainer container = builder.Build();
             this.ApplicationContainer = container;
 
-            // 設定相依性解析器
+            // Set solution packages' dependency resolver
             DependencyResolver.Current.SetContainer(container);
 
             return new AutofacServiceProvider(this.ApplicationContainer);
@@ -112,7 +109,7 @@ namespace AspNet.Docker.Integration
         {
             using (ILifetimeScope scope = this.ApplicationContainer.BeginLifetimeScope())
             {
-                // 若 database 未建立，則根據dbContext 建立 db
+                // build database and sync table if db not created.
                 DockerPostgresDbContext postgresDbContext = scope.Resolve<DockerPostgresDbContext>();
                 postgresDbContext.Database.EnsureCreated();
 
