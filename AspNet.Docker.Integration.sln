@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Docker.Integration.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Docker.Integration.Helper", "AspNet.Docker.Integration.Helper\AspNet.Docker.Integration.Helper.csproj", "{73DA350F-52C2-4205-96CC-C74BCB50FFDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Docker.Integration.UnitTest", "AspNet.Docker.Integration.UnitTest\AspNet.Docker.Integration.UnitTest.csproj", "{782ABD90-C628-4BFA-AF0D-A1AC334FC24B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{73DA350F-52C2-4205-96CC-C74BCB50FFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73DA350F-52C2-4205-96CC-C74BCB50FFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73DA350F-52C2-4205-96CC-C74BCB50FFDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{782ABD90-C628-4BFA-AF0D-A1AC334FC24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{782ABD90-C628-4BFA-AF0D-A1AC334FC24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{782ABD90-C628-4BFA-AF0D-A1AC334FC24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{782ABD90-C628-4BFA-AF0D-A1AC334FC24B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

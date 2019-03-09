@@ -6,6 +6,8 @@ COPY *.sln .
 COPY AspNet.Docker.Integration/*.csproj ./AspNet.Docker.Integration/
 COPY AspNet.Docker.Integration.Helper/*.csproj ./AspNet.Docker.Integration.Helper/
 COPY AspNet.Docker.Integration.Repository/*.csproj ./AspNet.Docker.Integration.Repository/
+
+# 必須取消並行下載，不然會出錯
 RUN dotnet restore --disable-parallel
 
 # copy everything else and build app
