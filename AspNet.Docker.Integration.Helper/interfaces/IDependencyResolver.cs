@@ -3,29 +3,29 @@
 namespace AspNet.Docker.Integration.Helper
 {
     /// <summary>
-    /// 相依解析器介面
+    /// Dependency Resolver interface
     /// </summary>
     public interface IDependencyResolver
     {
         /// <summary>
-        /// 設定相依性注入容器
+        /// set container
         /// </summary>
-        /// <param name="container">相依性注入容器</param>
+        /// <param name="container">di container</param>
         void SetContainer(IContainer container);
 
         /// <summary>
-        /// 解析指定型別的服務
+        /// Resolve specified service
         /// </summary>
-        /// <typeparam name="TService">指定服務型別</typeparam>
-        /// <returns>指定服務物件</returns>
+        /// <typeparam name="TService">specified service type</typeparam>
+        /// <returns>specified service object</returns>
         TService Resolve<TService>();
 
         /// <summary>
-        /// 由註冊時帶入之鍵值解析指定服務
+        /// Resolve specified service by specified key
         /// </summary>
-        /// <typeparam name="TService">指定服務型別</typeparam>
-        /// <param name="key">註冊鍵值</param>
-        /// <returns>指定服務物件</returns>
+        /// <typeparam name="TService">specified service type</typeparam>
+        /// <param name="key">specified key</param>
+        /// <returns>specified service object</returns>
         TService ResolveKeyed<TService>(object key);
     }
 }

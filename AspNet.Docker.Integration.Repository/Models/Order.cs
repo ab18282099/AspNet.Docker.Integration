@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AspNet.Docker.Integration.Repository.Models
 {
     /// <summary>
-    /// 訂單資料
+    /// Order
     /// </summary>
     [Table("ORDER")]
     public class Order
     {
         /// <summary>
-        /// 訂單編號
+        /// order id
         /// </summary>
         [Column("ORDER_ID")]
         [Key]
@@ -18,7 +18,7 @@ namespace AspNet.Docker.Integration.Repository.Models
         public int Id { get; set; }
         
         /// <summary>
-        /// 使用者編號
+        /// user id
         /// </summary>
         [Column("ORDER_USERID")]
         public int UserId { get; set; }

@@ -4,31 +4,49 @@ using Microsoft.AspNetCore.Mvc;
 namespace AspNet.Docker.Integration.Controllers
 {
     /// <summary>
-    /// api 測試控制器
+    /// Api test controller
     /// </summary>
     public class TestController : Controller
     {
         /// <summary>
-        /// 使用者資料儲存庫
+        /// User Repo
         /// </summary>
-        private readonly IUserRepositoy UserRepositoy;
+        private readonly IUserRepositoy UserRepository;
 
         /// <summary>
-        /// 建構子
+        /// Order Repo
         /// </summary>
-        /// <param name="userRepositoy">使用者資料儲存庫</param>
-        public TestController(IUserRepositoy userRepositoy)
+        private readonly IOrderRepository OrderRepository;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="userRepository">User repo</param>
+        /// <param name="orderRepository">Order repo</param>
+        public TestController(
+            IUserRepositoy userRepository,
+            IOrderRepository orderRepository)
         {
-            this.UserRepositoy = userRepositoy;
+            this.UserRepository = userRepository;
+            this.OrderRepository = orderRepository;
         }
 
         /// <summary>
-        /// 取得所有使用者資料
+        /// Get all user data by GET /Test/GetUsers
         /// </summary>
         /// <returns> json response </returns>
         public IActionResult GetUsers()
         {
-            return this.Json(this.UserRepositoy.GetAll());
+            return this.Json(this.UserRepository.GetAll());
+        }
+
+        /// <summary>
+        /// Get all order data by GET /Test/GetOrders
+        /// </summary>
+        /// <returns> json response </returns>
+        public IActionResult GetOrders()
+        {
+            return this.Json(this.OrderRepository.GetAll());
         }
     }
 }

@@ -7,33 +7,33 @@ using Microsoft.EntityFrameworkCore;
 namespace AspNet.Docker.Integration.Repository
 {
     /// <summary>
-    /// 泛型資料儲存庫介面
+    /// Generic repository interface
     /// </summary>
-    /// <typeparam name="TEntity">實體資料型別</typeparam>
-    /// <typeparam name="TDbContext"><see cref="DbContext"/> 實際型別</typeparam>
+    /// <typeparam name="TEntity">entity type</typeparam>
+    /// <typeparam name="TDbContext"><see cref="DbContext"/>DbContext type</typeparam>
     public interface IGenericRepository<TEntity, TDbContext> : IDisposable
         where TEntity : class
         where TDbContext : DbContext
     {
         /// <summary>
-        /// 新增一筆資料
+        /// Insert one data
         /// </summary>
-        /// <param name="entity">欲新增之實體資料</param>
-        /// <returns>是否新增成功</returns>
+        /// <param name="entity">the data that inserting</param>
+        /// <returns>the data that inserted</returns>
         TEntity Add(TEntity entity);
 
         /// <summary>
-        /// 更新一筆資料
+        /// Update one data
         /// </summary>
-        /// <param name="entity">欲更新的實體資料</param>
-        /// <returns>是否更新成功</returns>
+        /// <param name="entity">the data that updating</param>
+        /// <returns>success or not</returns>
         bool Update(TEntity entity);
 
         /// <summary>
-        /// 刪除一筆資料
+        /// Delete one data
         /// </summary>
-        /// <param name="entity">欲刪除的實體資料</param>
-        /// <returns>是否刪除成功</returns>
+        /// <param name="entity">the data that deleting</param>
+        /// <returns>success or not</returns>
         bool Delete(TEntity entity);
 
         /// <summary>
@@ -62,6 +62,7 @@ namespace AspNet.Docker.Integration.Repository
         /// 取得整個資料集合
         /// </summary>
         /// <returns>完整資料集</returns>
+        [MethodInterceptor]
         List<TEntity> GetAll();
     }
 }

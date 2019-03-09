@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace AspNet.Docker.Integration.Helper
 {
     /// <summary>
-    /// 紀錄 Method invoke 與 return
+    /// Log method invoke and out
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class MethodInterceptorAttribute : AbstractInterceptorAttribute
@@ -20,8 +20,8 @@ namespace AspNet.Docker.Integration.Helper
         /// Invoke this Interceptor
         /// </summary>
         /// <param name="context"><see cref="AspectContext"/></param>
-        /// <param name="next">實際被 Runtime 呼叫的 method</param>
-        /// <returns>觸發 AOP 的非同步工作</returns>
+        /// <param name="next">The actual method that runtime invoke</param>
+        /// <returns>The task that AOP Invoke</returns>
         public override async Task Invoke(AspectContext context, AspectDelegate next)
         {
             try
