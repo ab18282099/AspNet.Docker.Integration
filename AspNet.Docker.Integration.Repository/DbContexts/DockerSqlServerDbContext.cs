@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore;
 namespace AspNet.Docker.Integration.Repository
 {
     /// <summary>
-    /// 本站台使用之 Docker PostgreSql <see cref="DbContext"/>
+    /// 本站台使用之 Docker SqlServer <see cref="DbContext"/>
     /// </summary>
-    public class DockPostgresDbContext : DbContext
+    public class DockerSqlServerDbContext : DbContext
     {
         /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="options"><see cref="DbContextOptions{TContext}"/></param>
-        public DockPostgresDbContext(DbContextOptions<DockPostgresDbContext> options) : base(options)
+        public DockerSqlServerDbContext(DbContextOptions<DockerSqlServerDbContext> options) : base(options)
         {
         }
 
         /// <summary>
         /// <see cref="User"/> 資料集
         /// </summary>
-        public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         /// <summary>
         /// <see cref="OnModelCreating"/>
@@ -27,7 +27,7 @@ namespace AspNet.Docker.Integration.Repository
         /// <param name="modelBuilder"><see cref="ModelBuilder"/></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("kingoflock");
+            modelBuilder.HasDefaultSchema("dockerdemo");
 
             base.OnModelCreating(modelBuilder);
         }

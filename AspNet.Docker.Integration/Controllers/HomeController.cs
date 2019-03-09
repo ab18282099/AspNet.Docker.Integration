@@ -5,23 +5,23 @@ using System.Diagnostics;
 namespace AspNet.Docker.Integration.Controllers
 {
     /// <summary>
-    /// 範例的首頁控制器
+    /// Home page
     /// </summary>
     public class HomeController : Controller
     {
         /// <summary>
-        /// 首頁
+        /// Home
         /// </summary>
-        /// <returns>檢視</returns>
+        /// <returns>view</returns>
         public IActionResult Index()
         {
             return this.View();
         }
 
         /// <summary>
-        /// 關於
+        /// About
         /// </summary>
-        /// <returns>檢視</returns>
+        /// <returns>view</returns>
         public IActionResult About()
         {
             this.ViewData["Message"] = "Your application description page.";
@@ -30,9 +30,9 @@ namespace AspNet.Docker.Integration.Controllers
         }
 
         /// <summary>
-        /// 聯絡
+        /// Contact
         /// </summary>
-        /// <returns>檢視</returns>
+        /// <returns>view</returns>
         public IActionResult Contact()
         {
             this.ViewData["Message"] = "Your contact page.";
@@ -41,18 +41,18 @@ namespace AspNet.Docker.Integration.Controllers
         }
 
         /// <summary>
-        /// 隱私政策
+        /// Privacy
         /// </summary>
-        /// <returns>檢視</returns>
+        /// <returns>view</returns>
         public IActionResult Privacy()
         {
             return this.View();
         }
 
         /// <summary>
-        /// 錯誤頁面
+        /// Error
         /// </summary>
-        /// <returns>檢視</returns>
+        /// <returns>view</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

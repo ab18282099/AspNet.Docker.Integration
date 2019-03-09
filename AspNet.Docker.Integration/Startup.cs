@@ -1,7 +1,9 @@
-﻿using AspNet.Docker.Integration.Helper;
+﻿using AspectCore.Configuration;
+using AspectCore.Extensions.Autofac;
+using AspNet.Docker.Integration.Helper;
 using AspNet.Docker.Integration.Repository;
-using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,19 +11,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Linq;
 using System.Reflection;
+using System;
 
 namespace AspNet.Docker.Integration
 {
     /// <summary>
-    /// 啟動類別
+    /// Startup class
     /// </summary>
     public class Startup
     {
         /// <summary>
-        /// 建構子
+        /// constructor
         /// </summary>
         /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
         public Startup(IConfiguration configuration)
@@ -32,12 +34,12 @@ namespace AspNet.Docker.Integration
         /// <summary>
         /// Represents a set of key/value application configuration properties.
         /// </summary>
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Autofac DI 容器
+        /// Autofac DI container
         /// </summary>
-        public IContainer ApplicationContainer { get; private set; }
+        private IContainer ApplicationContainer { get; set; }
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.
@@ -56,14 +58,14 @@ namespace AspNet.Docker.Integration
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // DbContext in application scope
-            services.AddDbContext<DockPostgresDbContext>(options => options.UseNpgsql(this.Configuration.GetConnectionString("DockerPostgres")));
+            services.AddDbContext<DockerPostgresDbContext>(options => options.UseNpgsql(this.Configuration.GetConnectionString("DockerPostgres")));
+            services.AddDbContext<DockerSqlServerDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DockerSqlServer")));
+            
 
             ContainerBuilder builder = new ContainerBuilder();
-
-            // 將 services 容器內已有的類型註冊資訊倒入 autofac 容器
             builder.Populate(services);
 
-            // 取得排序後的 ITypeRegistrar
+            // Get ordered TypeRegistrar
             IOrderedEnumerable<ITypeRegistrar> registrars
                 = Assembly.GetExecutingAssembly()
                           .GetReferencedAssemblies()
@@ -77,14 +79,22 @@ namespace AspNet.Docker.Integration
                           .Distinct()
                           .OrderBy(p => p.Order);
 
-            // 個別進行註冊
             foreach (ITypeRegistrar registrar in registrars)
             {
                 registrar.Register(builder);
             }
 
+            // register Proxy for Interceptors(AOP)
+            builder.RegisterDynamicProxy(configure =>
+            {
+                configure.Interceptors.AddTyped<MethodInterceptorAttribute>();
+            });
+
             IContainer container = builder.Build();
             this.ApplicationContainer = container;
+
+            // Set solution packages' dependency resolver
+            DependencyResolver.Current.SetContainer(container);
 
             return new AutofacServiceProvider(this.ApplicationContainer);
         }
@@ -97,6 +107,16 @@ namespace AspNet.Docker.Integration
         /// <param name="appLifetime">Allows consumers to perform cleanup during a graceful shutdown.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
         {
+            using (ILifetimeScope scope = this.ApplicationContainer.BeginLifetimeScope())
+            {
+                // build database and sync table if db not created.
+                DockerPostgresDbContext postgresDbContext = scope.Resolve<DockerPostgresDbContext>();
+                postgresDbContext.Database.EnsureCreated();
+
+                DockerSqlServerDbContext sqlServerDbContext = scope.Resolve<DockerSqlServerDbContext>();
+                sqlServerDbContext.Database.EnsureCreated();
+            }
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

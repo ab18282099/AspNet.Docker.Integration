@@ -4,24 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AspNet.Docker.Integration.Repository.Models
 {
     /// <summary>
-    /// User
+    /// Order
     /// </summary>
-    [Table("user")]
-    public class User
+    [Table("ORDER")]
+    public class Order
     {
         /// <summary>
-        /// User id
+        /// order id
         /// </summary>
-        [Column("user_id")]
+        [Column("ORDER_ID")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
+        
         /// <summary>
-        /// user name
+        /// user id
         /// </summary>
-        [Column("user_name")]
-        [MaxLength(15)]
-        public string Name { get; set; }
+        [Column("ORDER_USERID")]
+        public int UserId { get; set; }
     }
 }
