@@ -7,14 +7,6 @@
 
 > Welcome technical exchange, if this project has mistake of code or concept of programming, let me know, thanks!
 
-## Environment
-
-Ubuntu 18.04
-
-Docker 17.05.0-ce
-
-dotnet SDK 2.1
-
 ## Build Setup
 
 Clone this project by
@@ -33,7 +25,7 @@ Then docker-compose up
 docker-compose up
 ```
 
-## Simple Test with URL
+## Simple Test with RESTful API
 
 POST /api/test/add/user, with body:
 ```json
