@@ -1,5 +1,7 @@
 # AspNet.Docker.Integration
 
+[![Build status](https://ci.appveyor.com/api/projects/status/csr4l6bm2nq9afsg?svg=true)](https://ci.appveyor.com/project/shengLin-alex/aspnet-docker-integration)
+
 > This project is built using [ASP.NET Core 2.1](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-2.1&tabs=visual-studio).  
 > The target is learning ASP.NET core with Dependency injection([Autofac](https://autofac.org/)) using repository pattern and technique of Docker.
 
