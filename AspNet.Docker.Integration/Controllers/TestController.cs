@@ -1,4 +1,5 @@
 ﻿using AspNet.Docker.Integration.Repository;
+using AspNet.Docker.Integration.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNet.Docker.Integration.Controllers
@@ -32,9 +33,38 @@ namespace AspNet.Docker.Integration.Controllers
         }
 
         /// <summary>
+        /// Add new user data
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <returns> json response </returns>
+        [HttpPost]
+        [Route("api/test/add/user")]
+        public IActionResult AddUser([FromBody] User user)
+        {
+            User newUser = this.UserRepository.Add(user);
+            
+            return this.Json(newUser);
+        }
+
+        /// <summary>
+        /// Add new order data
+        /// </summary>
+        /// <param name="order">Order</param>
+        /// <returns> json response </returns>
+        [HttpPost]
+        [Route("api/test/add/order")]
+        public IActionResult AddOrder([FromBody] Order order)
+        {
+            Order newOrder = this.OrderRepository.Add(order);
+
+            return this.Json(newOrder);
+        }
+
+        /// <summary>
         /// Get all user data by GET /Test/GetUsers
         /// </summary>
         /// <returns> json response </returns>
+        [Route("api/test/get/users")]
         public IActionResult GetUsers()
         {
             return this.Json(this.UserRepository.GetAll());
@@ -44,6 +74,7 @@ namespace AspNet.Docker.Integration.Controllers
         /// Get all order data by GET /Test/GetOrders
         /// </summary>
         /// <returns> json response </returns>
+        [Route("api/test/get/orders")]
         public IActionResult GetOrders()
         {
             return this.Json(this.OrderRepository.GetAll());

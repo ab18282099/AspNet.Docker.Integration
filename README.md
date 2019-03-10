@@ -35,4 +35,19 @@ docker-compose up
 
 ## Simple Test with URL
 
-Connect to database that run in docker and insert some data, then GET /Test/GetUsers and GET /Test/GetOrders.
+POST /api/test/add/user, with body:
+```json
+{
+  "name": "John Doe"
+}
+```
+
+GET /api/test/get/users, the response will show:
+```json
+[
+  {
+    "id": 1,
+    "name": "John Doe"
+  }
+]
+```
