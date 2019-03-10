@@ -31,6 +31,22 @@ sudo rm -rf ./data
 docker-compose up --build
 ```
 
+## .env example
+```
+APP_HOST_PORT=8001
+
+POSTGRES_HOST_DIR=./data/postgres_data
+POSTGRES_DB=develop
+POSTGRES_USER=dockeradmin
+POSTGRES_PASSWORD=dockeradmin
+POSTGRES_PORT=5432
+
+SQLSERVER_HOST_DIR=./data/sqlserver_data
+SQLSERVER_PORT=1433
+SQLSERVER_PASSWORD=dockERadmin_1
+```
+
+
 ## Simple Test with RESTful API
 
 POST /api/test/add/user, with body:
