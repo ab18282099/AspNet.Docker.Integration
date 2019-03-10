@@ -25,6 +25,12 @@ Then docker-compose up
 docker-compose up
 ```
 
+Rebuild image
+``` bash
+sudo rm -rf ./data
+docker-compose up --build
+```
+
 ## Simple Test with RESTful API
 
 POST /api/test/add/user, with body:
