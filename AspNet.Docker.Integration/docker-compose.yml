@@ -36,7 +36,8 @@ services:
     build:
       context: ../
       dockerfile: ./Dockerfile
-    command: ["/bin/bash", "/app/AspNet.Docker.Integration/init.sh"]
+    #command: ["/bin/bash", "/app/AspNet.Docker.Integration/init.sh"]
+    command: bash -c "cd /app/AspNet.Docker.Integration && dotnet run"
     ports:
       - "${APP_HOST_PORT}:80"
     tty: true

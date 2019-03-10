@@ -11,7 +11,7 @@
 # dotnet ef database update -c DockerPostgresDbContext &&\
 # dotnet ef database update -c DockerSqlServerDbContext &&\
 
-cd /app/AspNet.Docker.Integration
+#cd /app/AspNet.Docker.Integration
 
 # run host
-dotnet run
+#dotnet run
