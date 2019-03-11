@@ -27,7 +27,7 @@ docker-compose up
 
 Rebuild image
 ``` bash
-sudo rm -rf ./data
+sudo rm -rf ../db_data
 docker-compose up --build
 ```
 

@@ -261,4 +261,4 @@ __pycache__/
 *.pyc
 
 # db data
-AspNet.Docker.Integration/data/*
+db_data/*
