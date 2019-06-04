@@ -17,7 +17,7 @@ services:
       - netcore-dev
 
   sqlserver-docker:
-    image: microsoft/mssql-server-linux
+    image: mcr.microsoft.com/mssql/server
     container_name: DockerSqlServer
     ports:
       - "${SQLSERVER_PORT}:1433"
