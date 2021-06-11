@@ -1,3 +1,4 @@
+# This project is deprecated!
 # AspNet.Docker.Integration
 
 [![Build status](https://ci.appveyor.com/api/projects/status/csr4l6bm2nq9afsg?svg=true)](https://ci.appveyor.com/project/shengLin-alex/aspnet-docker-integration)
